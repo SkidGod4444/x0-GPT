@@ -48,7 +48,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           
-      <FloatingNav navItems={navItems} />
+      {/* <FloatingNav navItems={navItems} /> */}
           {children}
         </ThemeProvider>
       </body>

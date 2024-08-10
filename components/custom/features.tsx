@@ -9,7 +9,7 @@ export default function Features() {
       <span className="text-4xl font-bold md:text-6xl lg:text-7xl max-w-10xl mx-auto text-center relative z-20 px-2 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
         Why x0-GPT?
       </span>
-      <TextGenerateEffect duration={2} filter={false} words={words} />
+      <TextGenerateEffect filter={false} words={words} />
       <FeaturesSection/>
     </div>
   )
