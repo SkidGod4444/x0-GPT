@@ -1,62 +1,146 @@
-"use client";
-import { useEffect } from "react";
-import { motion, stagger, useAnimate } from "framer-motion";
-import { cn } from "@/lib/utils";
+'use client';
+import { motion, Variants } from 'framer-motion';
+import React from 'react';
 
-export const TextGenerateEffect = ({
-  words,
-  className,
-  filter = true,
-  duration = 0.2,
-}: {
-  words: string;
-  className?: string;
-  filter?: boolean;
-  duration?: number;
-}) => {
-  const [scope, animate] = useAnimate();
-  let wordsArray = words.split(" ");
-  useEffect(() => {
-    animate(
-      "span",
-      {
-        opacity: 1,
-        filter: filter ? "blur(0px)" : "none",
-      },
-      {
-        duration: duration ? duration : 1,
-        delay: stagger(0.2),
-      }
-    );
-  }, [scope.current]);
+type PresetType = 'blur' | 'shake' | 'scale' | 'fade' | 'slide';
 
-  const renderWords = () => {
-    return (
-      <motion.div ref={scope}>
-        {wordsArray.map((word, idx) => {
-          return (
-            <motion.span
-              key={word + idx}
-              className="text-neutral-400 opacity-0"
-              style={{
-                filter: filter ? "blur(10px)" : "none",
-              }}
-            >
-              {word}{" "}
-            </motion.span>
-          );
-        })}
-      </motion.div>
-    );
+type TextEffectProps = {
+  children: string;
+  per?: 'word' | 'char';
+  as?: keyof JSX.IntrinsicElements;
+  variants?: {
+    container?: Variants;
+    item?: Variants;
   };
+  className?: string;
+  preset?: PresetType;
+};
+
+const defaultContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+};
+
+const defaultItemVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+  },
+};
+
+const presetVariants: Record<
+  PresetType,
+  { container: Variants; item: Variants }
+> = {
+  blur: {
+    container: defaultContainerVariants,
+    item: {
+      hidden: { opacity: 0, filter: 'blur(12px)' },
+      visible: { opacity: 1, filter: 'blur(0px)' },
+    },
+  },
+  shake: {
+    container: defaultContainerVariants,
+    item: {
+      hidden: { x: 0 },
+      visible: { x: [-5, 5, -5, 5, 0], transition: { duration: 0.5 } },
+    },
+  },
+  scale: {
+    container: defaultContainerVariants,
+    item: {
+      hidden: { opacity: 0, scale: 0 },
+      visible: { opacity: 1, scale: 1 },
+    },
+  },
+  fade: {
+    container: defaultContainerVariants,
+    item: {
+      hidden: { opacity: 0 },
+      visible: { opacity: 1 },
+    },
+  },
+  slide: {
+    container: defaultContainerVariants,
+    item: {
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0 },
+    },
+  },
+};
+
+const AnimationComponent: React.FC<{
+  word: string;
+  variants: Variants;
+  per: 'word' | 'char';
+}> = React.memo(({ word, variants, per }) => {
+  if (per === 'word') {
+    return (
+      <motion.span
+        aria-hidden='true'
+        variants={variants}
+        className='inline-block whitespace-pre'
+      >
+        {word}
+      </motion.span>
+    );
+  }
 
   return (
-    <div className={cn("font-bold", className)}>
-      {/* <div className="mt-4"> */}
-        <div className="text-neutral-600 text-sm font-normal md:text-lg max-w-4xl mx-auto px-6 text-center">
-          {renderWords()}
-        </div>
-      {/* </div> */}
-    </div>
+    <span className='inline-block whitespace-pre'>
+      {word.split('').map((char, charIndex) => (
+        <motion.span
+          key={`char-${charIndex}`}
+          aria-hidden='true'
+          variants={variants}
+          className='inline-block whitespace-pre'
+        >
+          {char}
+        </motion.span>
+      ))}
+    </span>
   );
-};
+});
+
+AnimationComponent.displayName = 'AnimationComponent';
+
+export function TextEffect({
+  children,
+  per = 'word',
+  as = 'p',
+  variants,
+  className,
+  preset,
+}: TextEffectProps) {
+  const words = children.split(/(\S+)/);
+  const MotionTag = motion[as as keyof typeof motion];
+  const selectedVariants = preset
+    ? presetVariants[preset]
+    : { container: defaultContainerVariants, item: defaultItemVariants };
+  const containerVariants = variants?.container || selectedVariants.container;
+  const itemVariants = variants?.item || selectedVariants.item;
+
+  return (
+    <MotionTag
+      initial='hidden'
+      animate='visible'
+      aria-label={children}
+      variants={containerVariants}
+      className={className}
+    >
+      {words.map((word, wordIndex) => (
+        <AnimationComponent
+          key={`word-${wordIndex}`}
+          word={word}
+          variants={itemVariants}
+          per={per}
+        />
+      ))}
+    </MotionTag>
+  );
+}

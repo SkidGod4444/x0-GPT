@@ -1,77 +1,110 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import OrbitingCircles from "./orbiting-circles";
+import { TextEffect } from "./text-gen";
 
 export default function Orbits() {
+  const [OuterRadius, setOuterRadius] = useState(200);
+  const [InnerRadius, setInnerRadius] = useState(100);
+  const [isMob, setIsMob] = useState(false);
+
+  useEffect(() => {
+    const updateRadius = () => {
+      const screenWidth = window.innerWidth;
+      const isMobile = screenWidth < 600 ? true : false;
+      const outerRadius = screenWidth < 600 ? 180 : 200;
+      const innerRadius = screenWidth < 600 ? 90 : 100;
+      setIsMob(isMobile);
+      setInnerRadius(innerRadius);
+      setOuterRadius(outerRadius);
+    };
+
+    updateRadius();
+
+    window.addEventListener("resize", updateRadius);
+
+    return () => {
+      window.removeEventListener("resize", updateRadius);
+    };
+  }, []);
   return (
     <div className="flex flex-col my-20 gap-4 md:flex-row h-full w-full justify-center items-center overflow-hidden px-4">
-      <span className="text-4xl font-bold md:text-6xl lg:text-7xl max-w-10xl mx-auto text-center relative z-20 px-2 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
-        Chat with any data from any website on the internet
-      </span>
+      <div className="flex flex-col items-center justify-center gap-6">
+        <span className="text-4xl font-bold md:text-6xl lg:text-7xl max-w-10xl mx-auto text-center relative z-20 px-2 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
+          Train & chat with any data from any thing ...
+        </span>
+        <TextEffect
+          per='char' preset='fade'
+          className="text-muted-foreground text-sm font-normal md:text-lg max-w-4xl mx-auto px-10 text-center"
+        >
+          Supports any website on the internet, PDFs, documents, and much more, providing you with seamless and comprehensive access to information.
+        </TextEffect>
+      </div>
       <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden md:shadow-xl px-4">
-      <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-7xl font-bold leading-none text-transparent dark:from-white dark:to-black">
-        x0
-      </span>
-      {/* Inner Circles */}
-      <OrbitingCircles
-        className="size-[80px] border-none bg-white"
-        duration={20}
-        delay={20}
-        radius={200}
-      >
-        <Icons.github />
-      </OrbitingCircles>
+        <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-7xl font-bold leading-none text-transparent dark:from-white dark:to-black">
+          x0
+        </span>
+        {/* Inner Circles */}
+        <OrbitingCircles
+          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          duration={20}
+          delay={20}
+          radius={OuterRadius}
+        >
+          <Icons.github />
+        </OrbitingCircles>
 
-      <OrbitingCircles
-        className="size-[80px] border-none bg-transparent"
-        duration={20}
-        delay={15}
-        radius={200}
-      >
-        <Icons.notion />
-      </OrbitingCircles>
+        <OrbitingCircles
+          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          duration={20}
+          delay={15}
+          radius={OuterRadius}
+        >
+          <Icons.notion />
+        </OrbitingCircles>
 
-      <OrbitingCircles
-        className="size-[80px] border-none bg-transparent"
-        duration={20}
-        delay={10}
-        radius={200}
-      >
-        <Icons.medium />
-      </OrbitingCircles>
+        <OrbitingCircles
+          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          duration={20}
+          delay={10}
+          radius={OuterRadius}
+        >
+          <Icons.medium />
+        </OrbitingCircles>
 
-      <OrbitingCircles
-        className="size-[80px] border-none bg-transparent"
-        duration={20}
-        delay={5}
-        radius={200}
-      >
-        <Icons.reddit />
-      </OrbitingCircles>
+        <OrbitingCircles
+          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          duration={20}
+          delay={5}
+          radius={OuterRadius}
+        >
+          <Icons.reddit />
+        </OrbitingCircles>
 
-      {/* reverse */}
+        {/* reverse */}
 
-      <OrbitingCircles
-        className="size-[80px] border-none bg-transparent"
-        duration={20}
-        delay={10}
-        radius={100}
-        reverse
-      >
-        <Icons.wiki />
-      </OrbitingCircles>
+        <OrbitingCircles
+          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          duration={20}
+          delay={10}
+          radius={InnerRadius}
+          reverse
+        >
+          <Icons.wiki />
+        </OrbitingCircles>
 
-      <OrbitingCircles
-        className="size-[80px] border-none bg-transparent"
-        duration={20}
-        delay={20}
-        radius={100}
-        reverse
-      >
-        <Icons.x />
-      </OrbitingCircles>
-
-    </div>
+        <OrbitingCircles
+          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          duration={20}
+          delay={20}
+          radius={InnerRadius}
+          reverse
+        >
+          <Icons.x />
+        </OrbitingCircles>
+      </div>
     </div>
   );
 }
@@ -111,21 +144,9 @@ const Icons = {
     />
   ),
 
-  x: () => (
-    <Image
-      src={"/assets/x.svg"}
-      alt="x logo"
-      width={60}
-      height={60}
-    />
-  ),
+  x: () => <Image src={"/assets/x.svg"} alt="x logo" width={60} height={60} />,
   xDark: () => (
-    <Image
-      src={"/assets/x-dark.svg"}
-      alt="x logo"
-      width={100}
-      height={100}
-    />
+    <Image src={"/assets/x-dark.svg"} alt="x logo" width={100} height={100} />
   ),
 
   notion: () => (

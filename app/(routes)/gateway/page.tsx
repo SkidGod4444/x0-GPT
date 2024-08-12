@@ -1,10 +1,13 @@
+import SignInBtn from "@/components/custom/sign-btn";
 import SparklesText from "@/components/custom/sparkle-text";
 import { Button } from "@/components/ui/button";
+import { GoogleSignIn } from "@/db/func";
 import { IconBrandGoogleFilled } from "@tabler/icons-react";
 import Link from "next/link";
 import React from "react";
 
-export default function Gateway() {
+
+export default function Login() {
   return (
     <div className="flex flex-col h-full w-full lg:grid lg:grid-cols-2 overflow-hidden">
       <div className="absolute top-0 -z-[50] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(220,220,220,0.2),rgba(255,255,255,0))]" />
@@ -21,7 +24,7 @@ export default function Gateway() {
             </h1>
 
             <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 lg:my-2">
-              Hey, Humans!
+              Hey, Human!
             </h2>
 
             <p className="mt-2 lg:mt-4 text-muted-foreground">
@@ -30,10 +33,7 @@ export default function Gateway() {
             </p>
 
             <div className="mt-6">
-              <Button variant="secondary">
-                <IconBrandGoogleFilled className="h-5 w-5 mr-2" /> Continue with
-                Google
-              </Button>
+              <SignInBtn/>
             </div>
 
             <div className="mt-4 text-sm text-muted-foreground">
