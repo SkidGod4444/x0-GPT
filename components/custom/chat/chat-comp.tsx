@@ -36,7 +36,7 @@ export default function ChatComp() {
     },
     {
       description: "How can i get summary of a pdf?",
-      icon: <FileText className="h-4 w-4 text-yellow-600" />,
+      icon: <FileText className="h-4 w-4 text-yellow-500" />,
     },
     {
       description: "Can you teach me DSA?",
