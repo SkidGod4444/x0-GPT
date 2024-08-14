@@ -1,8 +1,8 @@
 import { Account, Client, Databases } from "appwrite";
 // Init your Web SDK
 const AppwriteClient = new Client();
-const EndPoint = process.env.APPWRITE_API!;
-const ProjectId = process.env.APPWRITE_PROJECT_ID!;
+const EndPoint = process.env.NEXT_PUBLIC_APPWRITE_API!;
+const ProjectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!;
 
 AppwriteClient
     .setEndpoint(EndPoint) // Your Appwrite Endpoint
