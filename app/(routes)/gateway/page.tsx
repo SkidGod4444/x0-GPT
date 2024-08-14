@@ -1,8 +1,5 @@
 import SignInBtn from "@/components/custom/sign-btn";
 import SparklesText from "@/components/custom/sparkle-text";
-import { Button } from "@/components/ui/button";
-import { GoogleSignIn } from "@/db/func";
-import { IconBrandGoogleFilled } from "@tabler/icons-react";
 import Link from "next/link";
 import React from "react";
 
