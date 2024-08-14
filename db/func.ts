@@ -8,7 +8,7 @@ async function GoogleSignIn() {
       OAuthProvider.Google,
       isDevelopment
         ? "http://localhost:3000/chat"
-        : "https://x0-gpt.devwtf.in"
+        : "https://x0-gpt.vercel.app/chat" // add your own host link
     );
   } catch (error) {
     console.error("ERROR OCCURED WHILE LOGGING IN:", error);
