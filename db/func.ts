@@ -8,7 +8,7 @@ async function GoogleSignIn() {
       OAuthProvider.Google,
       isDevelopment
         ? "http://localhost:3000/chat"
-        : "https://x0-gpt.devwtf.in/chat"
+        : "https://x0-gpt.devwtf.in"
     );
   } catch (error) {
     console.error("ERROR OCCURED WHILE LOGGING IN:", error);
