@@ -119,7 +119,9 @@ const SparklesText: React.FC<SparklesTextProps> = ({
         {sparkles.map((sparkle) => (
           <Sparkle key={sparkle.id} {...sparkle} />
         ))}
-        <strong className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600">{text}</strong>
+        <strong className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600">
+          {text}
+        </strong>
       </span>
     </div>
   );

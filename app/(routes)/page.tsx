@@ -1,8 +1,9 @@
 import { AnncBtn } from "@/components/custom/annc";
 import { Cover } from "@/components/custom/cover";
 import DotPattern from "@/components/custom/dot-patern";
-import Features from "@/components/custom/features";
-import Orbits from "@/components/custom/orbit";
+import Credits from "@/components/custom/hero/credits";
+import Features from "@/components/custom/hero/features";
+import Orbits from "@/components/custom/hero/orbit";
 import { TextEffect } from "@/components/custom/text-gen";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -22,7 +23,12 @@ export default function Home() {
           <h1 className="text-4xl font-bold md:text-6xl lg:text-7xl max-w-6xl mx-auto text-center relative z-20 py-10 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
             Talk to whatever you want using <Cover>x0-GPT</Cover> for free!
           </h1>
-          <TextEffect per="word" as="h3" preset="blur" className="text-muted-foreground text-sm font-normal md:text-lg max-w-4xl mx-auto px-10 text-center">
+          <TextEffect
+            per="word"
+            as="h3"
+            preset="blur"
+            className="text-muted-foreground text-sm font-normal md:text-lg max-w-4xl mx-auto px-10 text-center"
+          >
             Seamlessly interact with websites, PDFs, and various other content
             directly. Whether you&apos;re seeking answers, exploring content, or
             just curious, x0-GPT brings conversations to your fingertips, making
@@ -36,6 +42,10 @@ export default function Home() {
         </Link>
       </div>
 
+      <div className="flex h-full w-full items-center justify-center">
+        <Credits />
+      </div>
+
       <div className="relative h-full w-full flex flex-col gap-5">
         <DotPattern
           width={20}
@@ -44,7 +54,7 @@ export default function Home() {
           cy={1}
           cr={1}
           className={cn(
-            "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
+            "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] ",
           )}
         />
         <Orbits />

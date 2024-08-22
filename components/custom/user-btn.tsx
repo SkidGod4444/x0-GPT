@@ -30,21 +30,55 @@ import {
   IconSettingsCode,
   IconUserCircle,
 } from "@tabler/icons-react";
-import { useUser } from "@/context/user.context";
+import Link from "next/link";
+import { MyLinks } from "@/db/defaults";
+import { createClient } from "@/db/supabase/client";
+import { useAuth } from "@/context/auth.context";
+import { Badge } from "../ui/badge";
 
-export function UserBtn() {
-  const { signOut, current } = useUser();
-  const user = current;
+export default function UserBtn() {
+  const { user } = useAuth();
+  const pfp: string = user?.user_metadata.avatar_url!;
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error(error);
+      return;
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src={"https://github.com/shadcn.png"} alt="userdp" />
+          <AvatarImage
+            src={pfp || "https://github.com/shadcn.png"}
+            alt="userdp"
+          />
           <AvatarFallback>PFP</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 rounded-2xl mr-5 bg-primary-foreground">
-        <DropdownMenuLabel>{user?.name || "Saidev Dhal"}</DropdownMenuLabel>
+        <DropdownMenuLabel className="flex flex-row gap-3 cursor-pointer">
+          <Avatar className="cursor-pointer">
+            <AvatarImage
+              src={pfp || "https://github.com/shadcn.png"}
+              alt="userdp"
+            />
+            <AvatarFallback>PFP</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="text-md">
+              {user?.user_metadata.name || "UserName"}
+            </span>
+            {user ? (
+              <Badge className="bg-green-400 h-4 mt-1">Synchronized</Badge>
+            ) : (
+              <Badge className="bg-muted-foreground h-4 mt-1">Syncing...</Badge>
+            )}
+          </div>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem className="rounded-xl cursor-pointer">
@@ -68,14 +102,18 @@ export function UserBtn() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="rounded-xl cursor-pointer">
-          <IconBrandGithub className="h-5 w-5 mr-2" />
-          GitHub
-        </DropdownMenuItem>
-        <DropdownMenuItem className="rounded-xl cursor-pointer">
-          <IconHeartHandshake className="h-5 w-5 mr-2" />
-          Support
-        </DropdownMenuItem>
+        <Link href={MyLinks.github}>
+          <DropdownMenuItem className="rounded-xl cursor-pointer">
+            <IconBrandGithub className="h-5 w-5 mr-2" />
+            GitHub
+          </DropdownMenuItem>
+        </Link>
+        <Link href={MyLinks.sponsor}>
+          <DropdownMenuItem className="rounded-xl cursor-pointer">
+            <IconHeartHandshake className="h-5 w-5 mr-2" />
+            Support
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuItem disabled>
           <IconApi className="h-5 w-5 mr-2" />
           API
@@ -99,7 +137,9 @@ export function UserBtn() {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={signOut}>Continue</AlertDialogAction>
+              <AlertDialogAction onClick={handleSignOut}>
+                Continue
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

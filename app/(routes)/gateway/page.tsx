@@ -3,7 +3,6 @@ import SparklesText from "@/components/custom/sparkle-text";
 import Link from "next/link";
 import React from "react";
 
-
 export default function Login() {
   return (
     <div className="flex flex-col h-full w-full lg:grid lg:grid-cols-2 overflow-hidden">
@@ -30,7 +29,7 @@ export default function Login() {
             </p>
 
             <div className="mt-6">
-              <SignInBtn/>
+              <SignInBtn />
             </div>
 
             <div className="mt-4 text-sm text-muted-foreground">

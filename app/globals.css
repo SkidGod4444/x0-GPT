@@ -59,6 +59,10 @@
   }
 }
 
+::selection {
+  background-color: #ffffff;
+  color: black;
+}
 
 @layer base {
   * {

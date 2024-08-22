@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import OrbitingCircles from "./orbiting-circles";
-import { TextEffect } from "./text-gen";
+import OrbitingCircles from "../orbiting-circles";
+import { TextEffect } from "../text-gen";
 
 export default function Orbits() {
   const [OuterRadius, setOuterRadius] = useState(200);
@@ -36,10 +36,12 @@ export default function Orbits() {
           Train & chat with any data from any thing ...
         </span>
         <TextEffect
-          per='char' preset='fade'
+          per="char"
+          preset="fade"
           className="text-muted-foreground text-sm font-normal md:text-lg max-w-4xl mx-auto px-10 text-center"
         >
-          Supports any website on the internet, PDFs, documents, and much more, providing you with seamless and comprehensive access to information.
+          Supports any website on the internet, PDFs, documents, and much more,
+          providing you with seamless and comprehensive access to information.
         </TextEffect>
       </div>
       <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden md:shadow-xl px-4">
@@ -48,7 +50,7 @@ export default function Orbits() {
         </span>
         {/* Inner Circles */}
         <OrbitingCircles
-          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          className={`border-none bg-white ${isMob ? "size-[70px]" : "size-[80px]"}`}
           duration={20}
           delay={20}
           radius={OuterRadius}
@@ -57,7 +59,7 @@ export default function Orbits() {
         </OrbitingCircles>
 
         <OrbitingCircles
-          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          className={`border-none bg-white ${isMob ? "size-[70px]" : "size-[80px]"}`}
           duration={20}
           delay={15}
           radius={OuterRadius}
@@ -66,7 +68,7 @@ export default function Orbits() {
         </OrbitingCircles>
 
         <OrbitingCircles
-          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          className={`border-none bg-white ${isMob ? "size-[70px]" : "size-[80px]"}`}
           duration={20}
           delay={10}
           radius={OuterRadius}
@@ -75,7 +77,7 @@ export default function Orbits() {
         </OrbitingCircles>
 
         <OrbitingCircles
-          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          className={`border-none bg-white ${isMob ? "size-[70px]" : "size-[80px]"}`}
           duration={20}
           delay={5}
           radius={OuterRadius}
@@ -86,7 +88,7 @@ export default function Orbits() {
         {/* reverse */}
 
         <OrbitingCircles
-          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          className={`border-none bg-white ${isMob ? "size-[70px]" : "size-[80px]"}`}
           duration={20}
           delay={10}
           radius={InnerRadius}
@@ -96,7 +98,7 @@ export default function Orbits() {
         </OrbitingCircles>
 
         <OrbitingCircles
-          className={`border-none bg-white ${isMob ? "size-[70px]": "size-[80px]"}`}
+          className={`border-none bg-white ${isMob ? "size-[70px]" : "size-[80px]"}`}
           duration={20}
           delay={20}
           radius={InnerRadius}

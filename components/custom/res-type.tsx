@@ -1,15 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { Check, ChevronsUpDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Command,
-  CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
@@ -19,33 +17,37 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const spaces = [
+const Rtypes = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: "txt",
+    label: "It's a note.",
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: "html",
+    label: "It's a webpage",
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
+    value: "pdf",
+    label: "It's a PDF.",
   },
   {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
+    value: "csv",
+    label: "It's a CSV",
   },
 ];
 
-export function SpaceComp() {
+interface AddresInt {
+  onRtypeSelect?: (selectedRtype: string | null) => void;
+}
+export function ResourceType({ onRtypeSelect }: AddresInt) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-  const [search, setSearch] = React.useState("");
+
+  React.useEffect(() => {
+    if (onRtypeSelect) {
+      onRtypeSelect(value);
+    }
+  }, [value, onRtypeSelect]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -57,39 +59,34 @@ export function SpaceComp() {
           className="min-w-full bg-transparent text-muted-foreground justify-between rounded-xl"
         >
           {value
-            ? spaces.find((space) => space.value === value)?.label
-            : "Ask your space..."}
-          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            ? Rtypes.find((framework) => framework.value === value)?.label
+            : "Select content type."}
+          <ChevronsUpDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
-        <Command className="bg-[#171717]">
-          <CommandInput
-            onValueChange={(txt) => setSearch(txt)}
-            placeholder="Search/create a space..."
-            className="h-9"
-          />
+      <PopoverContent className="w-full p-0 rounded-2xl ml-2">
+        <Command className="bg-[#171717] rounded-2xl">
+          {/* <CommandInput placeholder="Search framework..." /> */}
           <CommandList>
-            <CommandEmpty>
-              <span className="underline cursor-pointer">Create space - {search}</span>
-            </CommandEmpty>
+            {/* <CommandEmpty>No framework found.</CommandEmpty> */}
             <CommandGroup>
-              {spaces.map((space) => (
+              {Rtypes.map((framework) => (
                 <CommandItem
-                  key={space.value}
-                  value={space.value}
+                  key={framework.value}
+                  value={framework.value}
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
+                  className="rounded-xl cursor-pointer"
                 >
-                  {space.label}
-                  <CheckIcon
+                  <Check
                     className={cn(
-                      "ml-auto h-4 w-4",
-                      value === space.value ? "opacity-100" : "opacity-0"
+                      "mr-2 h-4 w-4",
+                      value === framework.value ? "opacity-100" : "opacity-0",
                     )}
                   />
+                  {framework.label}
                 </CommandItem>
               ))}
             </CommandGroup>

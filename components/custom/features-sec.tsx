@@ -20,8 +20,7 @@ export function FeaturesSection() {
     },
     {
       title: "Ease of use",
-      description:
-        "It's as easy as pressing some keys & buttons.",
+      description: "It's as easy as pressing some keys & buttons.",
       icon: <IconEaseInOut />,
     },
     {
@@ -32,12 +31,14 @@ export function FeaturesSection() {
     },
     {
       title: "PDF Conversation",
-      description: "Interact with PDF documents like never before. Ask questions, extract details, and navigate complex documents effortlessly.",
+      description:
+        "Interact with PDF documents like never before. Ask questions, extract details, and navigate complex documents effortlessly.",
       icon: <IconFileTypePdf />,
     },
     {
       title: "Instant Information",
-      description: "Get real-time responses from websites and documents, saving time and enhancing productivity.",
+      description:
+        "Get real-time responses from websites and documents, saving time and enhancing productivity.",
       icon: <IconCloud />,
     },
     {
@@ -54,7 +55,8 @@ export function FeaturesSection() {
     },
     {
       title: "Privacy First",
-      description: "Your data is yours. x0-GPT ensures secure interactions, keeping your information safe and encrypted.",
+      description:
+        "Your data is yours. x0-GPT ensures secure interactions, keeping your information safe and encrypted.",
       icon: <IconSpy />,
     },
   ];
@@ -83,7 +85,7 @@ const Feature = ({
       className={cn(
         "flex flex-col lg:border-r  py-10 relative group/feature dark:border-neutral-800",
         (index === 0 || index === 4) && "lg:border-l dark:border-neutral-800",
-        index < 4 && "lg:border-b dark:border-neutral-800"
+        index < 4 && "lg:border-b dark:border-neutral-800",
       )}
     >
       {index < 4 && (

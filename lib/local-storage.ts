@@ -25,7 +25,7 @@ const useLocalStorage = (key: string, initialValue: string | boolean) => {
           ? typeof initialValue === "boolean"
             ? newValue === "true"
             : newValue
-          : initialValue
+          : initialValue,
       );
     };
 

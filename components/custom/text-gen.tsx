@@ -1,12 +1,12 @@
-'use client';
-import { motion, Variants } from 'framer-motion';
-import React from 'react';
+"use client";
+import { motion, Variants } from "framer-motion";
+import React from "react";
 
-type PresetType = 'blur' | 'shake' | 'scale' | 'fade' | 'slide';
+type PresetType = "blur" | "shake" | "scale" | "fade" | "slide";
 
 type TextEffectProps = {
   children: string;
-  per?: 'word' | 'char';
+  per?: "word" | "char";
   as?: keyof JSX.IntrinsicElements;
   variants?: {
     container?: Variants;
@@ -40,8 +40,8 @@ const presetVariants: Record<
   blur: {
     container: defaultContainerVariants,
     item: {
-      hidden: { opacity: 0, filter: 'blur(12px)' },
-      visible: { opacity: 1, filter: 'blur(0px)' },
+      hidden: { opacity: 0, filter: "blur(12px)" },
+      visible: { opacity: 1, filter: "blur(0px)" },
     },
   },
   shake: {
@@ -77,14 +77,14 @@ const presetVariants: Record<
 const AnimationComponent: React.FC<{
   word: string;
   variants: Variants;
-  per: 'word' | 'char';
+  per: "word" | "char";
 }> = React.memo(({ word, variants, per }) => {
-  if (per === 'word') {
+  if (per === "word") {
     return (
       <motion.span
-        aria-hidden='true'
+        aria-hidden="true"
         variants={variants}
-        className='inline-block whitespace-pre'
+        className="inline-block whitespace-pre"
       >
         {word}
       </motion.span>
@@ -92,13 +92,13 @@ const AnimationComponent: React.FC<{
   }
 
   return (
-    <span className='inline-block whitespace-pre'>
-      {word.split('').map((char, charIndex) => (
+    <span className="inline-block whitespace-pre">
+      {word.split("").map((char, charIndex) => (
         <motion.span
           key={`char-${charIndex}`}
-          aria-hidden='true'
+          aria-hidden="true"
           variants={variants}
-          className='inline-block whitespace-pre'
+          className="inline-block whitespace-pre"
         >
           {char}
         </motion.span>
@@ -107,12 +107,12 @@ const AnimationComponent: React.FC<{
   );
 });
 
-AnimationComponent.displayName = 'AnimationComponent';
+AnimationComponent.displayName = "AnimationComponent";
 
 export function TextEffect({
   children,
-  per = 'word',
-  as = 'p',
+  per = "word",
+  as = "p",
   variants,
   className,
   preset,
@@ -127,8 +127,8 @@ export function TextEffect({
 
   return (
     <MotionTag
-      initial='hidden'
-      animate='visible'
+      initial="hidden"
+      animate="visible"
       aria-label={children}
       variants={containerVariants}
       className={className}

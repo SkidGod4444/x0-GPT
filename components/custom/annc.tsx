@@ -1,17 +1,17 @@
 import Link from "next/link";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { GitBranch } from "lucide-react";
-import { Separator } from "./separator";
 import AnimatedShinyText from "./shiny-text";
 import { cn } from "@/lib/utils";
+import { MyLinks } from "@/db/defaults";
 
 export function AnncBtn() {
   return (
     <div className="z-10 flex items-center justify-center">
-      <Link href="https://git.new/pvOF6aq">
+      <Link href={MyLinks.github}>
         <div
           className={cn(
-            "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+            "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
           )}
         >
           <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
