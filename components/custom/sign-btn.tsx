@@ -7,7 +7,13 @@ import { createClient } from "@/db/supabase/client";
 
 export default function SignInBtn() {
   const handleSignIn = async () => {
-    const origin = process.env.NEXT_PUBLIC_URL;
+    let origin = "";
+    const isLocalEnv = process.env.NODE_ENV === "development";
+    if(isLocalEnv){
+      origin = "http://localhost:3000"
+    } else {
+      origin = "https://x0-gpt.devwtf.in" 
+    }
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: "google",
