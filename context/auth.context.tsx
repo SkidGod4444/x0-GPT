@@ -24,7 +24,6 @@ export const useAuth = () => {
           const slug = await GenChatUUID(user.id);
           if (slug) {
             await setUserCurrenChat(user.id, slug);
-            console.log("SLUG:", slug);
           }
         }
         setUser(user ?? null);

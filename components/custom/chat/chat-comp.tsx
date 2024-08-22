@@ -31,7 +31,7 @@ import FileUploadComp from "../file-upload-comp";
 import AddResComp from "../sidebar/add-res-comp";
 import { Message, useChat } from "ai/react";
 import MsgsWrapper from "./msgs-wrapper";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import UserBtn from "../user-btn";
 import { useAuth } from "@/context/auth.context";
 import { useRouter } from "next/navigation";
@@ -43,17 +43,17 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export const ChatComp = ({
   chatId,
   history,
-  offRag,
   onHasMessagesChange,
 }: {
   chatId: string;
   history?: Message[];
-  offRag?: boolean;
   onHasMessagesChange?: (hasMessages: boolean) => void;
 }) => {
   const { user } = useAuth();
   const uid = user?.id!;
   const router = useRouter();
+  const [space, setSpace] = useState<string | null>(null);
+  // const [RAG, setRAG] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -76,7 +76,7 @@ export const ChatComp = ({
   const { messages, handleInputChange, handleSubmit, input, isLoading } =
     useChat({
       api: "/api/stream/reply",
-      body: { chatId, offRag },
+      body: { chatId, namespace: space },
       initialMessages: history,
     });
 
@@ -170,7 +170,12 @@ export const ChatComp = ({
             }`}
           >
             <nav className="grid gap-1 px-2 py-4">
-              {!isCollapsed ? <SpaceComp /> : null}
+              {!isCollapsed ? (
+                <SpaceComp
+                  placeHolder="Ask to your space..."
+                  onSpaceSelect={(space) => setSpace(space)}
+                />
+              ) : null}
               {!isCollapsed ? <SearchComp /> : null}
               <div className="flex w-full border-b mt-3" />
               {!isCollapsed ? <AddResComp /> : null}
@@ -264,7 +269,7 @@ export const ChatComp = ({
               isCollapsed ? "opacity-100 max-w-full" : "opacity-0 max-w-0"
             }`}
           >
-            {isCollapsed ? <SpaceComp /> : null}
+            {isCollapsed ? <SpaceComp placeHolder="Ask to your space..."/> : null}
           </div>
 
           {/* Center (Logo) */}

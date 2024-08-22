@@ -9,10 +9,10 @@ export default function SignInBtn() {
   const handleSignIn = async () => {
     let origin = "";
     const isLocalEnv = process.env.NODE_ENV === "development";
-    if(isLocalEnv){
-      origin = "http://localhost:3000"
+    if (isLocalEnv) {
+      origin = "http://localhost:3000";
     } else {
-      origin = "https://x0-gpt.devwtf.in" 
+      origin = "https://x0-gpt.devwtf.in";
     }
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({

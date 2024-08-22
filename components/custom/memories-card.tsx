@@ -138,7 +138,9 @@ export default function MemoCard({
       <CardHeader className="bg-primary-foreground p-3 pb-2 flex flex-row justify-between">
         <div className="flex flex-row items-center gap-2">
           {getIconForType(type)}
-          <h2 className="text-lg font-bold text-white truncate">{title}</h2>
+          <h2 className="text-lg font-bold text-white truncate">
+            {title.length > 20 ? `${title.slice(0, 25)}...` : title}
+          </h2>
         </div>
         <DropdownMenu open={open} onOpenChange={setOpen}>
           <DropdownMenuTrigger asChild>

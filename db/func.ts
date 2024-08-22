@@ -469,6 +469,38 @@ const deleteResource = async (id: string) => {
   }
 };
 
+// ______________________________________________________________________________________________________________________
+// STORAGE FUNCTIONS
+// ______________________________________________________________________________________________________________________
+
+const getFileUrl = async (filepath: string) => {
+  const { data } = await supabase.storage
+    .from("x0-gpt")
+    .createSignedUrl(filepath, 604800);
+
+  if (data) {
+    console.log("File url fetched successfully");
+    return data.signedUrl;
+  } else {
+    console.error("Error fetching file url");
+    return null;
+  }
+};
+
+const deleteFile = async (filePath: string) => {
+  const { data, error } = await supabase.storage
+    .from("x0-gpt")
+    .remove([filePath]);
+
+  if (error) {
+    console.error(error);
+    return false;
+  }
+
+  console.log(`File deleted successfully`);
+  return true;
+};
+
 export {
   storeUser,
   getUserById,
@@ -499,4 +531,6 @@ export {
   getResourcesByType,
   getResourcesByUserId,
   deleteResource,
+  getFileUrl,
+  deleteFile,
 };

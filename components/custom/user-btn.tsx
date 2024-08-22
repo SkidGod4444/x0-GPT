@@ -82,15 +82,10 @@ export default function UserBtn() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem className="rounded-xl cursor-pointer">
-            <IconUserCircle className="h-5 w-5 mr-2" />
-            Account
-          </DropdownMenuItem>
-          <DropdownMenuItem className="rounded-xl cursor-pointer">
             <IconSettingsCode className="h-5 w-5 mr-2" />
             Settings
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem disabled>
             <IconCirclesRelation className="h-5 w-5 mr-2" />

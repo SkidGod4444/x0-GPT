@@ -22,6 +22,7 @@ import { toast } from "sonner";
 export default function AddResComp() {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
+  const [ph, setPh] = useState<string | null>(null);
   const [title, setTitle] = useState<string | null>(null);
   const [space, setSpace] = useState<string | null>(null);
   const [content, setContent] = useState<string | null>(null);
@@ -60,6 +61,18 @@ export default function AddResComp() {
       toast.error("Please fill all the required fields.");
     }
   };
+
+  useEffect(() => {
+    if (contentType === "pdf") {
+      setPh("Provide your pdf url.");
+    } else if (contentType === "csv") {
+      setPh("Provide your csv url.");
+    } else if (contentType === "txt") {
+      setPh("Enter your text.");
+    } else if (contentType === "html") {
+      setPh("Provide your webpage url.");
+    }
+  }, [contentType]);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -109,7 +122,7 @@ export default function AddResComp() {
         <ResourceType onRtypeSelect={(rtype) => setContentType(rtype)} />
         <Label htmlFor="message">Your content *</Label>
         <Textarea
-          placeholder="Enter your content."
+          placeholder={ph || "Enter your content."}
           id="message"
           className="border border-muted rounded-xl"
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>

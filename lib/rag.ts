@@ -2,9 +2,8 @@ import { RAGChat, togetherai, upstash } from "@upstash/rag-chat";
 import { redisDB } from "./redis";
 
 const ragChat = new RAGChat({
-  model: upstash("meta-llama/Meta-Llama-3-8B-Instruct"), //togetherai("meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"),
+  model: togetherai("meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"), // upstash("meta-llama/Meta-Llama-3-8B-Instruct"),
   redis: redisDB,
-  debug: true,
   promptFn: ({ context, question, chatHistory }) =>
     `You are x0-GPT, an AI assistant created by Saidev Dhal.
      Use the provided context and chat history to answer the question.
@@ -21,10 +20,11 @@ const ragChat = new RAGChat({
 });
 
 async function AddPDFContext(namespace: string, src: string) {
+  const res = await fetch(src);
+  const buffer = await res.blob();
   await ragChat.context.add({
     type: "pdf",
-    fileSource: src,
-    config: { chunkOverlap: 50, chunkSize: 200 },
+    fileSource: buffer,
     pdfConfig: { splitPages: true },
     options: { namespace: namespace },
   });

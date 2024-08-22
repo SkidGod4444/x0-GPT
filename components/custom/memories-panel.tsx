@@ -3,14 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import ToolbarPanel from "../ui/toolbar-panel";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
 import { useAuth } from "@/context/auth.context";
 import { getResourcesByUserId } from "@/db/func";
 import MemoCard from "./memories-card";
@@ -141,19 +133,13 @@ export default function MemoriesPanel() {
     }
   };
 
-  // Debugging logs
-  useEffect(() => {
-    console.log("Current Memo:", currentMemo);
-    console.log("Display Memo:", displayMemo);
-  }, [currentMemo, displayMemo]);
-
   return (
     <div className="flex flex-col h-full w-full">
-      <div className="flex mb-2 w-full items-center justify-between">
-        <div className="flex gap-2 rounded-xl p-[2px] bg-primary-foreground">
+      <div className="flex mb-2 w-full items-center justify-between flex-wrap">
+        <div className="flex flex-wrap gap-2 rounded-xl p-[2px] bg-primary-foreground">
           <ToolbarPanel
             defaultValue="All"
-            className="rounded-xl bg-white dark:bg-muted"
+            className="rounded-xl bg-white dark:bg-muted w-full max-w-xs sm:max-w-md md:max-w-lg"
             transition={{
               ease: "easeInOut",
               duration: 0.2,
@@ -165,7 +151,7 @@ export default function MemoriesPanel() {
                 key={index}
                 data-id={label}
                 variant="ghost"
-                className="rounded-xl"
+                className="rounded-xl flex-grow"
               >
                 {label}
               </Button>

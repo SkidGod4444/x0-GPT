@@ -148,7 +148,7 @@ export const FileUpload = ({
                 ) : (
                   <div className="flex flex-col items-center justify-center">
                     <p className="text-sm text-muted-foreground">
-                      ( PDF, CSV, TXT SUPPORTED ONLY. )
+                      ( PDF & CSV SUPPORTED ONLY. )
                     </p>
                     <UploadCloud className="size-6 text-neutral-600 dark:text-white mt-2" />
                   </div>

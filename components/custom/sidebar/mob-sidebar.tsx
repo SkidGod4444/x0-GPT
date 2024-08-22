@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import SearchComp from "./search-comp";
 import { HistoryViewer } from "./history-viewer";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import useLocalStorage from "@/lib/local-storage";
 
 interface Props {
   slug: string;
@@ -24,19 +25,6 @@ interface Props {
 export function MobSidebar({ slug }: Props) {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      if (window.matchMedia("(max-width: 768px)").matches) {
-        setIsSheetOpen(true);
-      } else {
-        setIsSheetOpen(false);
-      }
-    };
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
 
   const handleNewChat = () => {
     router.replace("/chat");

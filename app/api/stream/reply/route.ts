@@ -3,7 +3,12 @@ import { NextRequest } from "next/server";
 import { aiUseChatAdapter } from "@upstash/rag-chat/nextjs";
 
 export const POST = async (req: NextRequest) => {
-  const { messages, chatId, offRag, namespace } = await req.json();
+  const { messages, chatId, namespace } = await req.json();
+  let disableRAG = !namespace;
+
+  console.log("Namespace:", namespace);
+  console.log("Disable RAG:", disableRAG);
+
   const lastMsg = messages[messages.length - 1].content;
   const res = await ragChat.chat(lastMsg, {
     namespace: namespace,
@@ -11,8 +16,9 @@ export const POST = async (req: NextRequest) => {
     sessionId: chatId,
     historyLength: 100,
     historyTTL: 604_800,
-    similarityThreshold: 1,
-    disableRAG: offRag || false,
+    similarityThreshold: 0.7,
+    disableRAG: disableRAG,
   });
+
   return aiUseChatAdapter(res);
 };

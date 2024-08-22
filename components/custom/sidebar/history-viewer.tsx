@@ -1,11 +1,26 @@
 import * as React from "react";
 import { useAuth } from "@/context/auth.context";
 import Link from "next/link";
-import { getChatsByUserId } from "@/db/func";
+import { deleteChat, getChatsByUserId } from "@/db/func";
 import { toast } from "sonner";
 import { History, MoreHorizontal } from "lucide-react";
 import { isToday, isYesterday, isWithinInterval, subDays } from "date-fns";
 import { createClient } from "@/db/supabase/client";
+import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { IconTrash } from "@tabler/icons-react";
 
 interface HistInt {
   name: string;
@@ -22,6 +37,12 @@ export function HistoryViewer({ slug }: Props) {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [hoveredChat, setHoveredChat] = React.useState<string | null>(null);
+  const [open, setOpen] = React.useState(false);
+
+  const handleChatDel = async (id: string) => {
+    await deleteChat(id);
+    toast.success("Chat deleted successfully");
+  };
 
   React.useEffect(() => {
     const fetchAllHistory = async () => {
@@ -165,15 +186,17 @@ export function HistoryViewer({ slug }: Props) {
                     onMouseLeave={() => setHoveredChat(null)}
                   >
                     <Link href={`/c/${chat.slug}`} passHref>
-                      {chat.name}
+                      {chat.name.length > 20
+                        ? `${chat.name.slice(0, 25)}...`
+                        : chat.name}
                     </Link>
                     {(slug === chat.slug || hoveredChat === chat.slug) && (
-                      <div
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-muted"
-                        onClick={(e) => e.stopPropagation()} // Prevent link click
+                      <Badge
+                        onClick={() => handleChatDel(chat.slug)}
+                        className="absolute h-5 right-2 bg-muted hover:bg-muted shadow-none top-1/2 transform -translate-y-1/2 cursor-pointer"
                       >
-                        <MoreHorizontal className="cursor-pointer text-muted-foreground hover:text-white" />
-                      </div>
+                        <IconTrash className="cursor-pointer text-muted-foreground hover:text-red-600 size-4" />
+                      </Badge>
                     )}
                   </div>
                 ))}
@@ -192,15 +215,17 @@ export function HistoryViewer({ slug }: Props) {
                     onMouseLeave={() => setHoveredChat(null)}
                   >
                     <Link href={`/c/${chat.slug}`} passHref>
-                      {chat.name}
+                      {chat.name.length > 20
+                        ? `${chat.name.slice(0, 20)}...`
+                        : chat.name}
                     </Link>
                     {(slug === chat.slug || hoveredChat === chat.slug) && (
-                      <div
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2"
-                        onClick={(e) => e.stopPropagation()} // Prevent link click
+                      <Badge
+                        onClick={() => handleChatDel(chat.slug)}
+                        className="absolute h-5 right-2 bg-muted hover:bg-muted shadow-none top-1/2 transform -translate-y-1/2 cursor-pointer"
                       >
-                        <MoreHorizontal className="cursor-pointer text-muted-foreground hover:text-white" />
-                      </div>
+                        <IconTrash className="cursor-pointer text-muted-foreground hover:text-red-600 size-4" />
+                      </Badge>
                     )}
                   </div>
                 ))}
@@ -220,15 +245,17 @@ export function HistoryViewer({ slug }: Props) {
                     onMouseLeave={() => setHoveredChat(null)}
                   >
                     <Link href={`/c/${chat.slug}`} passHref>
-                      {chat.name}
+                      {chat.name.length > 20
+                        ? `${chat.name.slice(0, 20)}...`
+                        : chat.name}
                     </Link>
                     {(slug === chat.slug || hoveredChat === chat.slug) && (
-                      <div
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2"
-                        onClick={(e) => e.stopPropagation()} // Prevent link click
+                      <Badge
+                        onClick={() => handleChatDel(chat.slug)}
+                        className="absolute h-5 right-2 bg-muted hover:bg-muted shadow-none top-1/2 transform -translate-y-1/2 cursor-pointer"
                       >
-                        <MoreHorizontal className="cursor-pointer text-muted-foreground hover:text-white" />
-                      </div>
+                        <IconTrash className="cursor-pointer text-muted-foreground hover:text-red-600 size-4" />
+                      </Badge>
                     )}
                   </div>
                 ))}
