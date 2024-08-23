@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Introducing x0-GPT
 
-First, run the development server:
+![App Screenshot](https://i.imgur.com/ffeIgzW.png)
+
+
+# What is x0-GPT ?
+
+x0-GPT is an advanced AI-powered tool that enables you to interact seamlessly with any website or document (including PDFs) using natural language. Whether you're looking to extract specific data, automate tasks, or gain insights, x0-GPT makes it possible with ease. Best of all, it's free and accessible to everyone.
+
+
+
+## Features
+
+- User friendly interface 
+- Realtime updates
+- Dynamic routing
+- Supports almost all ai
+- Chat with websites
+- Chat with PDFs
+- Chat with CSVs
+- Chat with notes
+
+
+## Tech Stack
+
+This project is by the following tech stack:
+
+- Nextjs 14
+- Typescript
+- Tailwind CSS
+- Supabase
+- Upstash 
+- Acternity UI
+- Shadcn UI
+
+
+## Environment Variables
+
+To run this project, you will need to rename .env.example file to .env.local and add your keys.
+
+#### SUPABASE ENVS
+`NEXT_PUBLIC_SUPABASE_URL= "YOUR-KEYS"`
+`NEXT_PUBLIC_SUPABASE_ANON_KEY= "YOUR-KEYS"`
+            
+#### UPSTASH ENVS
+`UPSTASH_REDIS_REST_URL= "YOUR-KEYS"`
+`UPSTASH_REDIS_REST_TOKEN= "YOUR-KEYS"`
+`QSTASH_TOKEN=  "YOUR-KEYS"`
+`UPSTASH_VECTOR_REST_URL= "YOUR-KEYS"`
+`UPSTASH_VECTOR_REST_TOKEN= "YOUR-KEYS"`
+
+#### TOGETHER AI (optional)
+
+`OPENAI_API_KEY= "YOUR-KEYS"`
+
+
+## Installation
+
+Clone the github repo
+```bash 
+git clone https://github.com/SkidGod4444/x0-GPT
+cd x0-GPT
+```
+Install dependencies with bun.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  bun add
+  bun run dev
 ```
+    
+## Production
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+https://x0-gpt.devwtf.in/
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Contributing
 
-## Learn More
+Contributions are always welcome!
 
-To learn more about Next.js, take a look at the following resources:
+Do whatever you feel can improve this app.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Feedback
 
-## Deploy on Vercel
+If you have any feedback, please reach out to us at connect.saidev@gmail.com
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
